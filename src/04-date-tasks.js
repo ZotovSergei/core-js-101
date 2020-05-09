@@ -19,8 +19,9 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  return new Date(value);
+  // throw new Error('Not im plemented');
 }
 
 /**
@@ -34,8 +35,9 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  return Date.parse(value);
+  // throw new Error('Not implemented');
 }
 
 
@@ -53,8 +55,14 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const data = new Date(date);
+  data.setMonth(data.getMonth() + 1);
+  data.setDate(data.getDate() - 1);
+  const day = data.getDate();
+  if (day === 29) return true;
+  return false;
+  // throw new Error('Not implemented');
 }
 
 
@@ -73,8 +81,16 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const stDate = new Date(startDate);
+  const enDate = new Date(endDate);
+
+  const result = enDate - stDate;
+  const date = new Date(result).toISOString();
+
+  const res = date.substring(11, 23);
+  return res;
+  // throw new Error('Not implemented');
 }
 
 
@@ -94,8 +110,79 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const data = date.toISOString();
+
+  let hour = Number(data.substring(11, 13));
+  const m = Number(data.substring(14, 16));
+  if (hour > 12) {
+    hour -= 12;
+  }
+  const alpha = 30 * hour + 0.5 * m;
+  const beta = 6 * m;
+  let c = (alpha - beta);
+  if (c > 180) {
+    c = 360 - c;
+  }
+  // eslint-disable-next-line no-mixed-operators
+  const result = Math.abs(c) * Math.PI / 180;
+  return result;
+  // eslint-disable-next-line no-unreachable
+  if (hour > 12) {
+    switch (hour) {
+      case 13:
+        hour = 1;
+
+        break;
+      case 14:
+        hour = 2;
+
+        break;
+      case 15:
+        hour = 3;
+
+        break;
+      case 16:
+        hour = 4;
+
+        break;
+      case 17:
+        hour = 5;
+
+        break;
+      case 18:
+        hour = 6;
+
+        break;
+      case 19:
+        hour = 7;
+
+        break;
+      case 20:
+        hour = 8;
+
+        break;
+      case 21:
+        hour = 9;
+
+        break;
+      case 22:
+        hour = 10;
+
+        break;
+      case 23:
+        hour = 11;
+
+        break;
+      case 24:
+        hour = 12;
+
+        break;
+      default:
+        break;
+    }
+  }
+  // throw new Error('Not implemented');
 }
 
 
