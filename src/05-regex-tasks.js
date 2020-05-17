@@ -82,12 +82,12 @@ function getRegexForPitSpot() {
  *   'PASSW0RD'.match(validator)  => false
  *   'Pa55'.match(validator) => false
  */
-function getPasswordValidator(minLength) {
+function getPasswordValidator(/* minLength */) {
   // eslint-disable-next-line no-useless-escape
   // const t = `^[\W_]{${minLength},}$`;
-  const t = `^[a-zA-Z0-9]${minLength}$`;
-  return new RegExp(t);
-  // throw new Error('Not implemented');
+  // const t = `^[a-zA-Z0-9]${minLength}$`;
+  // return new RegExp(t);
+  throw new Error('Not implemented');
 }
 
 
