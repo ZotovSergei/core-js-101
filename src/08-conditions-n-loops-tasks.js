@@ -388,7 +388,7 @@ function isBracketsBalanced(str) {
   const arrBrackets = ['[]', '{}', '<>', '()'];
   if (nStr[0] === ')' || nStr[0] === ']' || nStr[0] === '}') return false;
   if (nStr.length === 0) return true;
-
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     let part1 = '';
     let part2 = ' ';
